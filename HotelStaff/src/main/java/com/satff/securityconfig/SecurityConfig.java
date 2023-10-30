@@ -1,4 +1,4 @@
-package com.jwtauth.config;
+package com.satff.securityconfig;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +16,8 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.jwtauth.jwt.JwtFilter;
+import com.satff.jwt.JwtFilter;
+
 
 @Configuration
 @EnableWebSecurity
@@ -51,7 +52,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http.cors();
 		http.csrf().disable()
 				    .authorizeRequests()
-					.antMatchers("/hotel/user/authenticate","/hotel/user/add")
+//				    .antMatchers("/swagger-ui/")
+//				    .permitAll()
+					.antMatchers("/hotel/staff/authenticate", "/hotel/staff/add")
 					.permitAll()
 					.anyRequest() 
 					.authenticated()

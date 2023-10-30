@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,46 +18,80 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.satff.awthrequest.AuthRequest;
 import com.satff.entity.Staff;
 import com.satff.exception.StaffNotFoundException;
+import com.satff.jwt.JwtUtil;
 import com.satff.service.IStaffService;
+import com.satff.service.StaffService;
 
 @RestController
 @RequestMapping("/hotel")
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin("*")
 public class StaffController {
-	
+
 	@Autowired
 	private IStaffService iStaffService;
-	
-	@PostMapping("/staff")
-	public Staff addStaff(@RequestBody Staff staff) {
-		return iStaffService.addStaff(staff);
+
+	@Autowired
+	private JwtUtil jwtUtil;
+
+	@Autowired
+	private AuthenticationManager authenticationManager;
+
+	@PostMapping("/staff/add")
+	public ResponseEntity<Object> addUser(@RequestBody Staff staff) {
+		Staff newUser = iStaffService.addStaff(staff);
+		return new ResponseEntity<>(newUser, HttpStatus.CREATED);
 	}
-	
-	@PutMapping("/staff")
-	public Staff updateStaff(@RequestBody Staff staff) throws StaffNotFoundException{
+
+	@PutMapping("/staff/update")
+	public Staff updateStaff(@RequestBody Staff staff) throws StaffNotFoundException {
 		return iStaffService.updateStaff(staff);
 	}
-	
-	@PutMapping("/staff/{staffEmailId}/{staffSalary}")
-	public ResponseEntity<Staff> updateStaffById(@PathVariable String staffEmailId, @PathVariable double staffSalary) throws StaffNotFoundException{
-		iStaffService.updateStaffById(staffEmailId, staffSalary);
+
+	@PutMapping("/staff/{username}/{salary}")
+	public ResponseEntity<Staff> updateStaffById(@PathVariable String username, @PathVariable double salary)
+			throws StaffNotFoundException {
+		iStaffService.updateStaffById(username, salary);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
-	@GetMapping("/staff")
-	public List<Staff> getAllStaff(){
+
+	@GetMapping("/staff/getAll")
+	public List<Staff> getAllStaff() {
 		return iStaffService.getAllStaff();
 	}
-	
-	@GetMapping("/staff/{staffEmailId}")
-	public Staff getStaffById(@PathVariable String staffEmailId) throws StaffNotFoundException{
-		return iStaffService.getStaffById(staffEmailId);
+
+	@GetMapping("/staff/{username}")
+	public Staff getStaffById(@PathVariable String username) throws StaffNotFoundException {
+		return iStaffService.getStaffById(username);
 	}
-	
-	@DeleteMapping("/staff/{staffEmailId}")
-	public void deleteStaff(@PathVariable String staffEmailId) throws StaffNotFoundException {
-		iStaffService.deleteStaff(staffEmailId);
+
+	@DeleteMapping("/staff/delete/{id}")
+	public void deleteStaff(@PathVariable long id) throws StaffNotFoundException {
+		iStaffService.deleteStaff(id);
 	}
+
+//Security Controller
+	@PostMapping("/staff/authenticate")
+	public String generateToken(@RequestBody AuthRequest authRequest) throws Exception {
+		try {
+			authenticationManager.authenticate(
+					new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+		} catch (Exception e) {
+			throw new Exception("Invalid Username or Password.");
+		}
+		return jwtUtil.generateToken(authRequest.getUsername());
+	}
+
+	@GetMapping("/staff/login/{username}/{password}")
+	@PreAuthorize("hasAnyRole('OWNER','MANAGER','RECEPTIONIST')")
+	public ResponseEntity<?> Login(@PathVariable String username, @PathVariable String password)
+			throws StaffNotFoundException {
+		Staff staff = iStaffService.logIn(username, password);
+		return new ResponseEntity<>(staff, HttpStatus.OK);
+
+	}
+
+	
 }

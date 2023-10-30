@@ -1,4 +1,4 @@
-package com.jwtauth.jwt;
+package com.satff.jwt;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import com.jwtauth.repository.UserRepository;
+import com.satff.repository.StaffRepository;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -19,7 +19,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class JwtUtil {
 
 	@Autowired
-	private UserRepository userRepo;
+	private StaffRepository staffRepository;
 
 	private String SECRET_KEY = "java";
 
@@ -59,7 +59,7 @@ public class JwtUtil {
 
 				.setSubject(subject)
 
-				.claim("role", userRepo.findByUsername(subject).get().getRole().toString())
+				.claim("role", staffRepository.findByUsername(subject).get().getRole().toString())
 
 				.setIssuedAt(new Date(System.currentTimeMillis()))
 

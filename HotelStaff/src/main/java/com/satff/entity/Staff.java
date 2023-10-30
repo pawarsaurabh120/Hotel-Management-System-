@@ -11,13 +11,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document("Staff")
+
 public class Staff {
 	
     @Id
-	private String staffEmailId;
-	private String staffName;
-	private String staffAddress;
-	private String staffRole;
-	private double staffSalary;
+    private long id;
+	private String username;
+    private String password;
+	private String name;
+	private String address;
+	private Role role;
+	private double salary;
 
 }

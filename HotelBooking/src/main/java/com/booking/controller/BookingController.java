@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,14 +21,15 @@ import com.booking.service.IBookingService;
 
 @RestController
 @RequestMapping("/hotel")
+@CrossOrigin("*")
 public class BookingController {
 	
 	@Autowired
 	private IBookingService iBookingService;
 	
-	@PostMapping("/booking/add/{roomId}")
-	public ResponseEntity<Booking> addBooking(@RequestBody Booking booking, @PathVariable int roomId) throws BookingNotFoundException{
-	    Booking b = iBookingService.addBooking(booking,roomId);
+	@PostMapping("/booking/add/{id}")
+	public ResponseEntity<Booking> addBooking(@RequestBody Booking booking, @PathVariable int id) throws BookingNotFoundException{
+	    Booking b = iBookingService.addBooking(booking,id);
 		return new ResponseEntity<>(b, HttpStatus.OK);
 	}
 	

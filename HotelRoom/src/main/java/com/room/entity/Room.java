@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class Room {
 	
 	@Id
-	private int roomNo;
+	private int id;
 	private int roomCapacity;
 	private String roomType;
 	private String roomStatus;

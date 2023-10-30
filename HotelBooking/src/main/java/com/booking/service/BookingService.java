@@ -29,7 +29,7 @@ public class BookingService implements IBookingService {
 			throw new BookingNotFoundException("Room not available");
 		} else if (r.getRoomStatus().equalsIgnoreCase("Available")) {
 			r.setRoomStatus("Not Avilable");
-			restTemplate.put("http://Room/hotel/room/updateStatus/" + r.getRoomNo() + "/" + "Not Available",
+			restTemplate.put("http://Room/hotel/room/updateStatus/" + r.getId() + "/" + "Not Available",
 					Room.class);
 			booking.setRoom(r);
 		}

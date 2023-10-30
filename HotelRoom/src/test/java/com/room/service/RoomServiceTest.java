@@ -31,7 +31,7 @@ class RoomServiceTest {
 	void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		room = new Room();
-		room.setRoomNo(101);
+		room.setId(101);
 		room.setRoomCapacity(2);
 		room.setRoomType("AC");
 		room.setRoomStatus("Available");
@@ -47,7 +47,7 @@ class RoomServiceTest {
 	@Test
 	void testUpdateRoom() throws RoomNotFoundException {
 		Room updatedRoom = new Room();
-		updatedRoom.setRoomNo(101);
+		updatedRoom.setId(101);
 		updatedRoom.setRoomCapacity(3);
 		updatedRoom.setRoomType("Non AC");
 		updatedRoom.setRoomStatus("Available");

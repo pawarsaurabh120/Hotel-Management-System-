@@ -22,13 +22,13 @@ public class RoomService implements IRoomService {
 
 	@Override
 	public Room updateRoom(Room room) throws RoomNotFoundException {
-		roomRepository.findById(room.getRoomNo()).orElseThrow(() -> new RoomNotFoundException("Room not found"));
+		roomRepository.findById(room.getId()).orElseThrow(() -> new RoomNotFoundException("Room not found"));
 		return roomRepository.save(room);
 	}
 
 	@Override
-	public Room updateRoomById(int roomNo, String roomStatus) throws RoomNotFoundException {
-		Room r1 = roomRepository.findById(roomNo).orElseThrow(() -> new RoomNotFoundException("Room not found"));
+	public Room updateRoomById(int id, String roomStatus) throws RoomNotFoundException {
+		Room r1 = roomRepository.findById(id).orElseThrow(() -> new RoomNotFoundException("Room not found"));
 		r1.setRoomStatus(roomStatus);
 		return roomRepository.save(r1);
 	}
@@ -39,18 +39,18 @@ public class RoomService implements IRoomService {
 	}
 
 	@Override
-	public Room getRoomById(int roomNo) throws RoomNotFoundException {
+	public Room getRoomById(int id) throws RoomNotFoundException {
 		try {
-			return roomRepository.findById(roomNo).get();
+			return roomRepository.findById(id).get();
 		} catch (Exception e) {
 			throw new RoomNotFoundException("Room not found");
 		}
 	}
 
 	@Override
-	public void deleteRoom(int roomNo) throws RoomNotFoundException {
-		roomRepository.findById(roomNo).orElseThrow(() -> new RoomNotFoundException("Room not found"));
-		roomRepository.deleteById(roomNo);
+	public void deleteRoom(int id) throws RoomNotFoundException {
+		roomRepository.findById(id).orElseThrow(() -> new RoomNotFoundException("Room not found"));
+		roomRepository.deleteById(id);
 	}
 
 }

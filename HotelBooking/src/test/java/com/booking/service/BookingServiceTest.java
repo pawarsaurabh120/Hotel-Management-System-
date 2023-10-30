@@ -52,7 +52,7 @@ class BookingServiceTest {
 		booking.setBookingCheckIn(checkIn);
 		booking.setBookingCheckIn(checkOut);
 		room = new Room();
-		room.setRoomNo(101);
+		room.setId(101);
 		room.setRoomCapacity(2);
 		room.setRoomType("AC");
 		room.setRoomStatus("Available");

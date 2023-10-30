@@ -21,38 +21,38 @@ import com.room.service.IRoomService;
 @RequestMapping("/hotel")
 @CrossOrigin("*")
 public class RoomController{
-	
+
 	@Autowired
 	private IRoomService iRoomService;
 	
-	@PostMapping("/room")
+	@PostMapping("/room/add")
 	public Room addRoom(@RequestBody Room room){ 
 		return iRoomService.addRoom(room);
 	}
 	
-	@PutMapping("/room")
+	@PutMapping("/room/update")
 	public Room updateRoom(@RequestBody Room room) throws RoomNotFoundException{
 		return iRoomService.updateRoom(room);
 	}
 	
-	@PutMapping("/room/{roomNo}/{roomStatus}")
-	public Room updateRoomById(@PathVariable int roomNo, @PathVariable String roomStatus) throws RoomNotFoundException{
-		return iRoomService.updateRoomById(roomNo, roomStatus);
+	@PutMapping("/room/{id}/{roomStatus}")
+	public Room updateRoomById(@PathVariable int id, @PathVariable String roomStatus) throws RoomNotFoundException{
+		return iRoomService.updateRoomById(id, roomStatus);
 	}
 	
-	@GetMapping("/room")
+	@GetMapping("/room/getAll")
 	public List<Room> getAllRoom(){
 		return iRoomService.getAllRoom();
 	}
 	
-	@GetMapping("/room/{roomNo}")
-	public Room getRoomById(@PathVariable int roomNo) throws RoomNotFoundException {
-		return iRoomService.getRoomById(roomNo);
+	@GetMapping("/room/{id}")
+	public Room getRoomById(@PathVariable int id) throws RoomNotFoundException {
+		return iRoomService.getRoomById(id);
 	}
 	
-	@DeleteMapping("/room/{roomNo}")
-	public void deleteRoom(@PathVariable int roomNo) throws RoomNotFoundException{
-		iRoomService.deleteRoom(roomNo);
+	@DeleteMapping("/room/delete/{id}")
+	public void deleteRoom(@PathVariable int id) throws RoomNotFoundException{
+		iRoomService.deleteRoom(id);
 	}
 
 }

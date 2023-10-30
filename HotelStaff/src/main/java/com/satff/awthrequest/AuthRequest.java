@@ -1,4 +1,4 @@
-package com.jwtauth.authrequest;
+package com.satff.awthrequest;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

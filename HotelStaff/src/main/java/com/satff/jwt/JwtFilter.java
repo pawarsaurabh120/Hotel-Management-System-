@@ -1,4 +1,4 @@
-package com.jwtauth.jwt;
+package com.satff.jwt;
 
 import java.io.IOException;
 
@@ -15,7 +15,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.jwtauth.service.UserService;
+import com.satff.service.StaffService;
 
 
 @Component
@@ -25,9 +25,7 @@ public class JwtFilter extends OncePerRequestFilter{
 	private JwtUtil jwtUtil;
 
 	@Autowired
-	private UserService userService;
-
- 
+	private StaffService staffService;
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -44,7 +42,7 @@ public class JwtFilter extends OncePerRequestFilter{
 		}
 
 		if(userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-			UserDetails userDetails = userService.loadUserByUsername(userName);
+			UserDetails userDetails = staffService.loadUserByUsername(userName);
 
 			if(jwtUtil.validateToken(token, userDetails)) {
 				UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
