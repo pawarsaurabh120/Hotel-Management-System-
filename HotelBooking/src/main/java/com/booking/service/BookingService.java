@@ -22,18 +22,17 @@ public class BookingService implements IBookingService {
 
 	@Override
 	public Booking addBooking(Booking booking, int roomId) throws BookingNotFoundException {
-		Room r = restTemplate.getForObject("http://Room/hotel/room/getByRoomNo/" + roomId, Room.class);
+		Room r = restTemplate.getForObject("http://ROOM/hotel/room/getByRoomNo/" + roomId, Room.class);
 		if (r == null) {
 			throw new BookingNotFoundException("Room not found");
 		} else if (r.getRoomStatus().equalsIgnoreCase("Not Available")) {
 			throw new BookingNotFoundException("Room not available");
 		} else if (r.getRoomStatus().equalsIgnoreCase("Available")) {
 			r.setRoomStatus("Not Avilable");
-			restTemplate.put("http://Room/hotel/room/updateStatus/" + r.getId() + "/" + "Not Available",
+			restTemplate.put("http://ROOM/hotel/room/" + r.getId() + "/" + "Not Available",
 					Room.class);
 			booking.setRoom(r);
 		}
-
 		return bookingRepository.save(booking);
 	}
 

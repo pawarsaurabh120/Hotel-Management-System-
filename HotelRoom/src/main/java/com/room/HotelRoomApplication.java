@@ -18,10 +18,10 @@ public class HotelRoomApplication {
 		System.out.println("Room Application Started...");
 	}
 
-//	@Bean
-//	@LoadBalanced
-//	public RestTemplate restTemplate() {
-//		return new RestTemplate();
-//	}
+	@Bean
+	@LoadBalanced
+	public RestTemplate restTemplate() {
+		return new RestTemplate();
+	}
 
 }

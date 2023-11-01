@@ -17,4 +17,6 @@ public interface IRoomService {
 	public Room getRoomById(int roomNo) throws RoomNotFoundException;
 
 	public void deleteRoom(int roomNo) throws RoomNotFoundException;
+
+	public List<Room> getAllAvailableRooms();
 }

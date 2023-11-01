@@ -18,5 +18,6 @@ public class Room {
 	private int roomCapacity;
 	private String roomType;
 	private String roomStatus;
+	private int roomAmount;
 	
 }

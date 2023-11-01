@@ -43,7 +43,7 @@ public class BookingController {
 		return iBookingService.getAllBooking();
 	}
 	
-	@GetMapping("/booking/getById/{bookingId}")
+	@GetMapping("/booking/{bookingId}")
 	public Booking getBookingById(@PathVariable int bookingId) throws BookingNotFoundException {
 		return iBookingService.getBookingById(bookingId);
 	}

@@ -46,6 +46,10 @@ public class RoomService implements IRoomService {
 			throw new RoomNotFoundException("Room not found");
 		}
 	}
+	
+	public List<Room> getAllAvailableRooms() {
+        return roomRepository.findByRoomStatus("Available");
+    }
 
 	@Override
 	public void deleteRoom(int id) throws RoomNotFoundException {

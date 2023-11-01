@@ -45,10 +45,15 @@ public class RoomController{
 		return iRoomService.getAllRoom();
 	}
 	
-	@GetMapping("/room/{id}")
+	@GetMapping("/room/getByRoomNo/{id}")
 	public Room getRoomById(@PathVariable int id) throws RoomNotFoundException {
 		return iRoomService.getRoomById(id);
 	}
+	
+	@GetMapping("/room/avilableRooms")
+	public List<Room> getAllAvailableRooms() {
+        return iRoomService.getAllAvailableRooms();
+    }
 	
 	@DeleteMapping("/room/delete/{id}")
 	public void deleteRoom(@PathVariable int id) throws RoomNotFoundException{

@@ -52,9 +52,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http.cors();
 		http.csrf().disable()
 				    .authorizeRequests()
-//				    .antMatchers("/swagger-ui/")
-//				    .permitAll()
-					.antMatchers("/hotel/staff/authenticate", "/hotel/staff/add")
+					.antMatchers("/hotel/staff/add", "/hotel/staff/update", 
+							     "/hotel/staff/{username}/{salary}", "/hotel/staff/getAll", 
+							     "/hotel/staff/{username}", "/hotel/staff/authenticate", 
+							     "/hotel/staff/delete/{id}")
 					.permitAll()
 					.anyRequest() 
 					.authenticated()
