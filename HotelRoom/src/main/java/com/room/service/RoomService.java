@@ -16,7 +16,13 @@ public class RoomService implements IRoomService {
 	private RoomRepository roomRepository;
 
 	@Override
-	public Room addRoom(Room room) {
+	public Room addRoom(Room room) throws RoomNotFoundException {
+		List<Room> list = roomRepository.findAll();
+		for (Room r : list) {
+			if (r.getId() == room.getId()) {
+				throw new RoomNotFoundException("Room already exists...");
+			}
+		}
 		return roomRepository.save(room);
 	}
 

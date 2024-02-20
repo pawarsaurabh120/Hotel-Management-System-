@@ -30,7 +30,7 @@ class RoomControllerTest {
 	}
 
 	@Test
-	void testAddRoom() {
+	void testAddRoom(){
 		Room room = new Room();
 		when(iRoomService.addRoom(room)).thenReturn(room);
 		Room newRoom = roomController.addRoom(room);
@@ -38,7 +38,7 @@ class RoomControllerTest {
 	}
 
 	@Test
-	void testUpdateRoom() throws RoomNotFoundException {
+	void testUpdateRoom(){
 		Room room = new Room();
 		when(iRoomService.updateRoom(room)).thenReturn(room);
 		Room updatedRoom = roomController.updateRoom(room);
@@ -46,7 +46,7 @@ class RoomControllerTest {
 	}
 
 	@Test
-	void testUpdateRoomById() throws RoomNotFoundException {
+	void testUpdateRoomById(){
 		int roomNo = 101;
 		String roomStatus = "Booked";
 		Room updatedRoom = new Room();
@@ -64,7 +64,7 @@ class RoomControllerTest {
 	}
 
 	@Test
-	void testGetRoomById() throws RoomNotFoundException {
+	void testGetRoomById(){
 		int roomNo = 101;
 		Room room = new Room();
 		when(iRoomService.getRoomById(roomNo)).thenReturn(room);
@@ -73,7 +73,7 @@ class RoomControllerTest {
 	}
 
 	@Test
-	void testDeleteRoom() throws RoomNotFoundException {
+	void testDeleteRoom(){
 		int roomNo = 101;
 		roomController.deleteRoom(roomNo);
 	}

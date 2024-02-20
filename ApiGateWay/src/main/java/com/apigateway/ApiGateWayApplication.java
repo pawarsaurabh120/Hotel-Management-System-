@@ -12,5 +12,4 @@ public class ApiGateWayApplication {
 		SpringApplication.run(ApiGateWayApplication.class, args);
 		System.out.println("Api-gateway Started...");
 	}
-
 }

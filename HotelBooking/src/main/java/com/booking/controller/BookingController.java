@@ -27,14 +27,14 @@ public class BookingController {
 	@Autowired
 	private IBookingService iBookingService;
 	
-	@PostMapping("/booking/add/{id}")
-	public ResponseEntity<Booking> addBooking(@RequestBody Booking booking, @PathVariable int id) throws BookingNotFoundException{
-	    Booking b = iBookingService.addBooking(booking,id);
+	@PostMapping("/booking/add/{RoomNo}")
+	public ResponseEntity<Booking> addBooking(@RequestBody Booking booking, @PathVariable int RoomNo){
+	    Booking b = iBookingService.addBooking(booking,RoomNo);
 		return new ResponseEntity<>(b, HttpStatus.OK);
 	}
 	
 	@PutMapping("/booking/update")
-	public Booking updateBooking(@RequestBody Booking booking) throws BookingNotFoundException{
+	public Booking updateBooking(@RequestBody Booking booking){
 		return iBookingService.updateBooking(booking);
 	}
 	
@@ -44,12 +44,12 @@ public class BookingController {
 	}
 	
 	@GetMapping("/booking/{bookingId}")
-	public Booking getBookingById(@PathVariable int bookingId) throws BookingNotFoundException {
+	public Booking getBookingById(@PathVariable int bookingId){
 		return iBookingService.getBookingById(bookingId);
 	}
 	
 	@DeleteMapping("/booking/delete/{bookingId}")
-	public void deleteBooking(@PathVariable int bookingId) throws BookingNotFoundException{
+	public void deleteBooking(@PathVariable int bookingId){
 		iBookingService.deleteBooking(bookingId);
 	}
 

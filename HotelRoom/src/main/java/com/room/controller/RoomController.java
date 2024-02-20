@@ -31,12 +31,12 @@ public class RoomController{
 	}
 	
 	@PutMapping("/room/update")
-	public Room updateRoom(@RequestBody Room room) throws RoomNotFoundException{
+	public Room updateRoom(@RequestBody Room room){
 		return iRoomService.updateRoom(room);
 	}
 	
 	@PutMapping("/room/{id}/{roomStatus}")
-	public Room updateRoomById(@PathVariable int id, @PathVariable String roomStatus) throws RoomNotFoundException{
+	public Room updateRoomById(@PathVariable int id, @PathVariable String roomStatus){
 		return iRoomService.updateRoomById(id, roomStatus);
 	}
 	
@@ -46,7 +46,7 @@ public class RoomController{
 	}
 	
 	@GetMapping("/room/getByRoomNo/{id}")
-	public Room getRoomById(@PathVariable int id) throws RoomNotFoundException {
+	public Room getRoomById(@PathVariable int id){
 		return iRoomService.getRoomById(id);
 	}
 	
@@ -56,7 +56,7 @@ public class RoomController{
     }
 	
 	@DeleteMapping("/room/delete/{id}")
-	public void deleteRoom(@PathVariable int id) throws RoomNotFoundException{
+	public void deleteRoom(@PathVariable int id){
 		iRoomService.deleteRoom(id);
 	}
 

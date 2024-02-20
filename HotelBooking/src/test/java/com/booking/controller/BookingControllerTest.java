@@ -31,7 +31,7 @@ class BookingControllerTest {
 	}
 
 	@Test
-	void testAddBooking() throws BookingNotFoundException {
+	void testAddBooking(){
 		Booking booking = new Booking();
 		int roomId = 101;
 		String staffEmailId = "Saurabh@gmail.com";
@@ -41,7 +41,7 @@ class BookingControllerTest {
 	}
 
 	@Test
-	void testUpdateBooking() throws BookingNotFoundException {
+	void testUpdateBooking(){
 		Booking booking = new Booking();
 		when(iBookingService.updateBooking(booking)).thenReturn(booking);
 		Booking updatedBooking = bookingController.updateBooking(booking);
@@ -57,7 +57,7 @@ class BookingControllerTest {
 	}
 
 	@Test
-	void testGetBookingById() throws BookingNotFoundException {
+	void testGetBookingById(){
 		int bookingId = 1;
 		Booking booking = new Booking();
 		when(iBookingService.getBookingById(bookingId)).thenReturn(booking);
@@ -66,7 +66,7 @@ class BookingControllerTest {
 	}
 
 	@Test
-	void testDeleteBooking() throws BookingNotFoundException {
+	void testDeleteBooking(){
 		int bookingId = 1;
 		bookingController.deleteBooking(bookingId);
 	}

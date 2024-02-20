@@ -6,7 +6,7 @@ import com.room.exception.RoomNotFoundException;
 
 public interface IRoomService {
 
-	public Room addRoom(Room room);
+	public Room addRoom(Room room) throws RoomNotFoundException;
 
 	public Room updateRoom(Room room) throws RoomNotFoundException;
 

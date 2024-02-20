@@ -21,7 +21,15 @@ public class BookingService implements IBookingService {
 	private RestTemplate restTemplate;
 
 	@Override
-	public Booking addBooking(Booking booking, int roomId) throws BookingNotFoundException {
+	public Booking addBooking(Booking booking, int roomId) throws BookingNotFoundException 
+	{
+		List<Booking> list = bookingRepository.findAll();
+		for (Booking b : list) {
+			if (b.getBookingId() == booking.getBookingId()) {
+				throw new BookingNotFoundException("Booking already exists...");
+			}
+		}
+		
 		Room r = restTemplate.getForObject("http://ROOM/hotel/room/getByRoomNo/" + roomId, Room.class);
 		if (r == null) {
 			throw new BookingNotFoundException("Room not found");
@@ -33,6 +41,7 @@ public class BookingService implements IBookingService {
 					Room.class);
 			booking.setRoom(r);
 		}
+		
 		return bookingRepository.save(booking);
 	}
 

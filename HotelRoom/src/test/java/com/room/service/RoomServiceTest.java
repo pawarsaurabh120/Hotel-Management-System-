@@ -38,7 +38,7 @@ class RoomServiceTest {
 	}
 
 	@Test
-	void testAddRoom() {
+	void testAddRoom() throws RoomNotFoundException {
 		when(roomRepository.save(room)).thenReturn(room);
 		Room r = roomService.addRoom(room);
 		assertEquals(r, room);

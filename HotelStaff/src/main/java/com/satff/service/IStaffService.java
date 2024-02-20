@@ -13,7 +13,7 @@ import com.satff.exception.StaffNotFoundException;
 @Service
 public interface IStaffService {
 	
-	public Staff addStaff(Staff staff);
+	public Staff addStaff(Staff staff) throws StaffNotFoundException;
 	
 	public Staff updateStaff(Staff staff) throws StaffNotFoundException;
 	

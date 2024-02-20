@@ -40,19 +40,18 @@ public class StaffController {
 	private AuthenticationManager authenticationManager;
 
 	@PostMapping("/staff/add")
-	public ResponseEntity<Object> addUser(@RequestBody Staff staff) {
+	public ResponseEntity<Object> addUser(@RequestBody Staff staff){
 		Staff newUser = iStaffService.addStaff(staff);
 		return new ResponseEntity<>(newUser, HttpStatus.CREATED);
 	}
 
 	@PutMapping("/staff/update")
-	public Staff updateStaff(@RequestBody Staff staff) throws StaffNotFoundException {
+	public Staff updateStaff(@RequestBody Staff staff){
 		return iStaffService.updateStaff(staff);
 	}
 
 	@PutMapping("/staff/{username}/{salary}")
-	public ResponseEntity<Staff> updateStaffById(@PathVariable String username, @PathVariable double salary)
-			throws StaffNotFoundException {
+	public ResponseEntity<Staff> updateStaffById(@PathVariable String username, @PathVariable double salary){
 		iStaffService.updateStaffById(username, salary);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
@@ -63,16 +62,15 @@ public class StaffController {
 	}
 
 	@GetMapping("/staff/{username}")
-	public Staff getStaffById(@PathVariable String username) throws StaffNotFoundException {
+	public Staff getStaffById(@PathVariable String username){
 		return iStaffService.getStaffById(username);
 	}
 
 	@DeleteMapping("/staff/delete/{id}")
-	public void deleteStaff(@PathVariable long id) throws StaffNotFoundException {
+	public void deleteStaff(@PathVariable long id){
 		iStaffService.deleteStaff(id);
 	}
 
-//Security Controller
 	@PostMapping("/staff/authenticate")
 	public String generateToken(@RequestBody AuthRequest authRequest) throws Exception {
 		try {
@@ -85,13 +83,12 @@ public class StaffController {
 	}
 
 	@GetMapping("/staff/login/{username}/{password}")
-	@PreAuthorize("hasAnyRole('OWNER','MANAGER','RECEPTIONIST')")
+//	@PreAuthorize("hasAnyRole('OWNER','MANAGER','RECEPTIONIST')")
 	public ResponseEntity<?> Login(@PathVariable String username, @PathVariable String password)
 			throws StaffNotFoundException {
 		Staff staff = iStaffService.logIn(username, password);
 		return new ResponseEntity<>(staff, HttpStatus.OK);
 
 	}
-
 	
 }

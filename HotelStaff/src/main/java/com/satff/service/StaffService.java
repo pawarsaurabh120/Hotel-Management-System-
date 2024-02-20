@@ -22,7 +22,13 @@ public class StaffService implements UserDetailsService, IStaffService {
 	private StaffRepository staffRepository;
 
     @Override
-	public Staff addStaff(Staff staff) {
+	public Staff addStaff(Staff staff) throws StaffNotFoundException {
+    	List<Staff> list = staffRepository.findAll();
+		for (Staff st : list) {
+			if (st.getId() == staff.getId()) {
+				throw new StaffNotFoundException("Staff Id already exists...");
+			}
+		}
 		return staffRepository.save(staff);
 	}
 
@@ -84,6 +90,5 @@ public class StaffService implements UserDetailsService, IStaffService {
 				Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + staff.getRole().toString())));
 
 	}
-
 
 }
